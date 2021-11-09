@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The result of then </title>
+</head>
+<body>
+    <script>
+        let p = new Promise((resolve,reject)=>{
+            resolve('ok')
+        })
+
+        let res = p.then((result)=>{
+            console.log(result);
+            return 521;
+        },(reason)=>{
+            console.log(reason);
+        })
+
+        console.log(res);
+
+
+    </script>
+    <script>
+        //异常的穿透
+
+        let p2 = new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                // resolve('ok')
+                reject('Err')
+            }, 1000);
+        })
+
+        p.then(value=>{
+            console.log("111");
+            // throw "失败了！"
+        }).then(value=>{
+            console.log("222");
+        }).then(value=>{
+            console.log("333");
+        }).catch(reason=>{
+            console.log(reason);
+        })
+    </script>
+
+    <script>
+        //中断Promise - 返回一个Pending的Promise对象
+        p.then(value=>{
+            
+            // 在这里中断链条
+            console.log("111");
+            return new Promise(()=>{})
+        }).then(value=>{
+            console.log("222");
+        }).then(value=>{
+            console.log("333");
+        }).catch(reason=>{
+            console.log(reason);
+        })
+
+    </script>
+</body>
+</html>

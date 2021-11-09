@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise API - reject</title>
+</head>
+<body>
+    <script>
+        let p1 = Promise.reject(521);
+        //如果传入的参数为非Promise,则返回结果为成功的Promise，且result等于传入的值
+        //如果传入的参数为Promise，则由传入的Promise来决定
+
+        let p2 = Promise.reject(new Promise((resolve,reject)=>{ 
+            resolve("I am p2");
+        }))
+
+        let p3 = Promise.reject(new Promise((resolve,reject)=>{
+            reject("I am p3")
+        }))
+
+
+
+        console.log(p1);
+        console.log(p2);
+        console.log(p3);
+    </script>
+</body>
+</html>

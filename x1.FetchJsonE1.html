@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Json example 1</title>
+</head>
+
+<body>
+    <div id="myData"></div>
+    <script>
+        fetch('./json/people.json')
+            .then(function (response) {
+                //console.log(response.json());   -- only can consume response once. Otherwise will report error "Failed to execute json on response, body stream already read"
+                console.log(response.clone().json());
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            }).catch(function (err) {
+                console.log("error" + err);
+            });
+
+        function appendData(data) {
+            var dContainer = document.getElementById("myData");
+            for (let index = 0; index < data.length; index++) {
+                var div = document.createElement("div");
+                div.innerHTML = "Name: " + data[index].firstName + "||| " + data[index].lastName;
+                dContainer.appendChild(div);
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
